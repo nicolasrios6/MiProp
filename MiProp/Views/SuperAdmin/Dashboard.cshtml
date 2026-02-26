@@ -1,0 +1,29 @@
+﻿@{
+    ViewData["Title"] = "Dashboard SuperAdmin";
+}
+
+<div class="container mt-5">
+    <h2 class="mb-4">Panel de Super Administrador</h2>
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card shadow-sm p-3">
+                <h5>Administradores</h5>
+                <p>Gestionar cuentas de administradores</p>
+                <a asp-controller="Admin" asp-action="Index" class="btn btn-primary">
+                    Gestionar
+                </a>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card shadow-sm p-3">
+                <h5>Edificios</h5>
+                <p>Ver edificios registrados</p>
+                <a asp-controller="Edificios" asp-action="Index" class="btn btn-primary">
+                    Ver
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
