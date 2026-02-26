@@ -1,0 +1,33 @@
+﻿@model IEnumerable<Usuario>
+
+<h2>Administradores</h2>
+
+<a asp-action="Create" class="btn btn-primary mb-3">Nuevo Admin</a>
+<a asp-action="Dashboard" asp-controller="SuperAdmin" class="btn btn-secondary mb-3">Volver</a>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Email</th>
+            <th>Activo</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var admin in Model)
+        {
+            <tr>
+                <td>@admin.Nombre</td>
+                <td>@admin.Apellido</td>
+                <td>@admin.Email</td>
+                <td>@(admin.Activo ? "Sí" : "No")</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@admin.Id" class="btn btn-sm btn-warning">Editar</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
