@@ -10,7 +10,7 @@ namespace MiProp.Models
         public int? Piso { get; set; }
 
         public int EdificioId { get; set; }
-        public Edificio Edificio { get; set; }
+        public Edificio? Edificio { get; set; }
 
         public string? InquilinoId { get; set; }
         public Usuario? Inquilino { get; set; }

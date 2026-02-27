@@ -13,8 +13,8 @@ namespace MiProp.Models
         [StringLength(150)]
         public string Direccion { get; set; }
 
-        public string AdminId { get; set; }
-        public Usuario Admin { get; set; }
+        public string? AdminId { get; set; }
+        public Usuario? Admin { get; set; }
 
         public ICollection<Departamento> Departamentos { get; set; } = new List<Departamento>();
     }

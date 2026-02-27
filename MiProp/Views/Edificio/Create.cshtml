@@ -1,0 +1,29 @@
+﻿@model Edificio
+
+<h2>Crear Edificio</h2>
+
+<form asp-action="Create" method="post">
+
+    <div class="mb-3">
+        <label>Nombre</label>
+        <input asp-for="Nombre" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label>Dirección</label>
+        <input asp-for="Direccion" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label>Admin</label>
+        <select asp-for="AdminId" class="form-control">
+            <option value="">-- Seleccionar --</option>
+            @foreach (var admin in ViewBag.Admins)
+            {
+                <option value="@admin.Id">@admin.Nombre @admin.Apellido</option>
+            }
+        </select>
+    </div>
+
+    <button type="submit" class="btn btn-success">Guardar</button>
+</form>

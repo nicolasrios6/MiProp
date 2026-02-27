@@ -1,0 +1,40 @@
+﻿@model IEnumerable<Usuario>
+
+@{
+    ViewData["Title"] = "Inquilinos";
+    var departamentos = ViewBag.Departamentos as List<Departamento>;
+}
+
+<h2>Inquilinos</h2>
+
+<a asp-action="Create" class="btn btn-primary mb-3">Nuevo Inquilino</a>
+<a asp-action="Dashboard" asp-controller="Admin" class="btn btn-secondary mb-3">Volver</a>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Email</th>
+            <th>Departamento</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            var depto = departamentos.FirstOrDefault(d => d.InquilinoId == item.Id);
+
+            <tr>
+                <td>@item.Nombre @item.Apellido</td>
+                <td>@item.Email</td>
+                <td>
+                    @(depto != null ? $"{depto.Numero} - Piso {depto.Piso}" : "Sin asignar")
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Editar</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Eliminar</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

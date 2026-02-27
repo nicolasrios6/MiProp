@@ -1,0 +1,40 @@
+﻿@{
+    ViewData["Title"] = "Crear Inquilino";
+}
+
+<h2>Nuevo Inquilino</h2>
+
+<form asp-action="Create" method="post">
+
+    <div class="mb-3">
+        <label>Nombre</label>
+        <input name="nombre" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label>Apellido</label>
+        <input name="apellido" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label>Email</label>
+        <input name="email" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label>Password</label>
+        <input name="password" type="password" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label>Departamento</label>
+        <select name="departamentoId" class="form-control">
+            @foreach (var d in ViewBag.Departamentos)
+            {
+                <option value="@d.Id">@d.Numero - Piso @d.Piso</option>
+            }
+        </select>
+    </div>
+
+    <button type="submit" class="btn btn-success">Guardar</button>
+</form>

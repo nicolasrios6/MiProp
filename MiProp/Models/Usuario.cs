@@ -12,6 +12,9 @@ namespace MiProp.Models
         [StringLength(50)]
         public string Apellido { get; set; }
         public bool Activo { get; set; } = true;
+
+        public int? EdificioId { get; set; }
+        public Edificio? Edificio { get; set; }
     }
 
     public class UsuarioLoginViewModel

@@ -1,0 +1,43 @@
+﻿@model Usuario
+
+@{
+    ViewData["Title"] = "Dashboard Admin";
+}
+
+<div class="container mt-5">
+    <h2 class="mb-4">Panel de Administración - @Model.Edificio?.Nombre </h2>
+
+    <div class="row g-4">
+
+        <div class="col-md-4">
+            <div class="card shadow-sm p-3">
+                <h5>Inquilinos</h5>
+                <p>Gestionar inquilinos del edificio</p>
+                <a asp-controller="Inquilino" asp-action="Index" class="btn btn-primary">
+                    Gestionar
+                </a>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card shadow-sm p-3">
+                <h5>Departamentos</h5>
+                <p>Administrar departamentos</p>
+                <a asp-controller="Departamento" asp-action="Index" class="btn btn-primary">
+                    Gestionar
+                </a>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card shadow-sm p-3">
+                <h5>Pagos</h5>
+                <p>Registrar y controlar pagos</p>
+                <a asp-controller="Pagos" asp-action="Index" class="btn btn-primary">
+                    Gestionar
+                </a>
+            </div>
+        </div>
+
+    </div>
+</div>
