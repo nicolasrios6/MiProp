@@ -85,5 +85,63 @@ namespace MiProp.Controllers
 
             return RedirectToAction(nameof(Index));
         }
+
+        public async Task<IActionResult> Edit(string id)
+        {
+            if (id == null)
+                return NotFound();
+
+            var admin = await _userManager.GetUserAsync(User);
+
+            var inquilino = await _context.Users
+                .FirstOrDefaultAsync(u =>
+                    u.Id == id &&
+                    u.EdificioId == admin.EdificioId);
+
+            if (inquilino == null)
+                return NotFound();
+
+            return View(inquilino);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(string id, Usuario model)
+        {
+            if (id != model.Id)
+                return NotFound();
+
+            var admin = await _userManager.GetUserAsync(User);
+
+            var inquilino = await _context.Users
+                .FirstOrDefaultAsync(u =>
+                    u.Id == id &&
+                    u.EdificioId == admin.EdificioId);
+
+            if (inquilino == null)
+                return NotFound();
+
+            if (!ModelState.IsValid)
+                return View(model);
+
+            // Actualizamos solo lo editable
+            inquilino.Nombre = model.Nombre;
+            inquilino.Apellido = model.Apellido;
+            inquilino.Email = model.Email;
+            inquilino.UserName = model.Email;
+            inquilino.Activo = model.Activo;
+
+            var result = await _userManager.UpdateAsync(inquilino);
+
+            if (!result.Succeeded)
+            {
+                foreach (var error in result.Errors)
+                    ModelState.AddModelError("", error.Description);
+
+                return View(model);
+            }
+
+            return RedirectToAction(nameof(Index));
+        }
     }
 }

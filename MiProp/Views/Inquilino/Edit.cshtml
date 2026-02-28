@@ -1,0 +1,40 @@
+﻿@model Usuario
+
+@{
+    ViewData["Title"] = "Editar Inquilino";
+}
+
+<div class="container mt-4">
+    <h2>Editar Inquilino</h2>
+
+    <form asp-action="Edit">
+        <input type="hidden" asp-for="Id" />
+
+        <div class="mb-3">
+            <label>Nombre</label>
+            <input asp-for="Nombre" class="form-control" />
+            <span asp-validation-for="Nombre" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label>Apellido</label>
+            <input asp-for="Apellido" class="form-control" />
+            <span asp-validation-for="Apellido" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label>Email</label>
+            <input asp-for="Email" class="form-control" />
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+
+
+        <div class="form-check mb-3">
+            <input asp-for="Activo" class="form-check-input" />
+            <label class="form-check-label">Activo</label>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Guardar</button>
+        <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>

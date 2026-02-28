@@ -36,7 +36,7 @@ namespace MiProp.Data
 
             builder.Entity<Pago>()
                 .HasOne(p => p.Inquilino)
-                .WithMany()
+                .WithMany(u => u.Pagos)
                 .HasForeignKey(p => p.InquilinoId)
                 .OnDelete(DeleteBehavior.Restrict);
         }

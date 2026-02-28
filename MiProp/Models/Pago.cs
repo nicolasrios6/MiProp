@@ -7,7 +7,7 @@ namespace MiProp.Models
         public int Id { get; set; }
 
         public string InquilinoId { get; set; }
-        public Usuario Inquilino { get; set; }
+        public Usuario? Inquilino { get; set; }
 
         [Column(TypeName = "decimal(18,2)")]
         public decimal Monto { get; set; }

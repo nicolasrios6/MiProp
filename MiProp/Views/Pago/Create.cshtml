@@ -1,0 +1,32 @@
+﻿@model Pago
+
+@{
+    ViewData["Title"] = "Crear Pago";
+}
+
+<div class="container mt-4">
+    <h2>Nuevo Pago</h2>
+
+    <form asp-action="Create">
+        <div class="mb-3">
+            <label>Inquilino</label>
+            <select asp-for="InquilinoId" class="form-control"
+                    asp-items="@(new SelectList(ViewBag.Inquilinos, "Id", "NombreCompleto"))">
+                <option value="">Seleccione</option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label>Monto</label>
+            <input asp-for="Monto" class="form-control" />
+        </div>
+
+        <div class="mb-3">
+            <label>Fecha Vencimiento</label>
+            <input asp-for="FechaVencimiento" type="date" class="form-control" />
+        </div>
+
+        <button type="submit" class="btn btn-success">Guardar</button>
+        <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>

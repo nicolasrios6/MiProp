@@ -11,10 +11,12 @@ namespace MiProp.Models
         [Required]
         [StringLength(50)]
         public string Apellido { get; set; }
+        public string NombreCompleto => $"{Nombre} {Apellido}";
         public bool Activo { get; set; } = true;
 
         public int? EdificioId { get; set; }
         public Edificio? Edificio { get; set; }
+        public ICollection<Pago>? Pagos { get; set; } = new List<Pago>();
     }
 
     public class UsuarioLoginViewModel

@@ -1,0 +1,64 @@
+﻿@model IEnumerable<Pago>
+
+@{
+    ViewData["Title"] = "Pagos";
+}
+
+<div class="container mt-4">
+    <h2>Gestión de Pagos</h2>
+
+    <a asp-action="Create" class="btn btn-success mb-3">
+        Nuevo Pago
+    </a>
+    <a asp-action="Dashboard" asp-controller="Admin" class="btn btn-secondary mb-3">Volver</a>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Inquilino</th>
+                <th>Monto</th>
+                <th>Vencimiento</th>
+                <th>Fecha Pago</th>
+                <th>Estado</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var pago in Model)
+            {
+                <tr>
+                    <td>@pago.Inquilino.Nombre @pago.Inquilino.Apellido</td>
+                    <td>$ @pago.Monto</td>
+                    <td>@pago.FechaVencimiento.ToShortDateString()</td>
+                    <td>
+                        @(pago.FechaPago.HasValue? pago.FechaPago.Value.ToShortDateString() : "-")
+                    </td>
+                    <td>
+                        @if (pago.Estado == EstadoPago.Pagado)
+                        {
+                            <span class="badge bg-success">Pagado</span>
+                        }
+                        else
+                        {
+                            <span class="badge bg-warning text-dark">Pendiente</span>
+                        }
+                    </td>
+                    <td>
+                        @if (pago.Estado != EstadoPago.Pagado)
+                        {
+                            <a asp-action="MarcarPagado" asp-route-id="@pago.Id"
+                               class="btn btn-sm btn-primary">
+                                Marcar Pagado
+                            </a>
+                        }
+
+                        <a asp-action="Delete" asp-route-id="@pago.Id"
+                           class="btn btn-sm btn-danger">
+                            Eliminar
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
