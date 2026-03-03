@@ -52,7 +52,7 @@ namespace MiProp.Controllers
                     return RedirectToAction("Dashboard", "Admin");
 
                 if (await _userManager.IsInRoleAsync(user, "Inquilino"))
-                    return RedirectToAction("Dashboard", "Inquilino");
+                    return RedirectToAction("Index", "InquilinoPanel");
 
                 return RedirectToAction("Index", "Home");
             }

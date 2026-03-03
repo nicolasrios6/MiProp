@@ -1,0 +1,97 @@
+﻿@model Usuario
+@{
+    var departamento = ViewBag.Departamento as Departamento;
+    var pagos = ViewBag.Pagos as List<Pago>;
+}
+
+<div class="container mt-4">
+
+    <h2 class="mb-4">Mi Panel</h2>
+
+    <!-- 📌 SECCIÓN 1: DATOS PERSONALES -->
+    <div class="card mb-4">
+        <div class="card-header bg-primary text-white">
+            Datos Personales
+        </div>
+        <div class="card-body">
+            <p><strong>Nombre:</strong> @Model.Nombre @Model.Apellido</p>
+            <p><strong>Email:</strong> @Model.Email</p>
+        </div>
+    </div>
+
+    <!-- 📌 SECCIÓN 2: DEPARTAMENTO -->
+    <div class="card mb-4">
+        <div class="card-header bg-secondary text-white">
+            Departamento Asignado
+        </div>
+        <div class="card-body">
+            @if (departamento != null)
+            {
+                <p><strong>Edificio:</strong> @departamento.Edificio.Nombre</p>
+                <p><strong>Número:</strong> @departamento.Numero</p>
+                <p><strong>Piso:</strong> @(departamento.Piso?.ToString() ?? "-")</p>
+            }
+            else
+            {
+                <p class="text-muted">No tiene departamento asignado.</p>
+            }
+        </div>
+    </div>
+
+    <!-- 📌 SECCIÓN 3: PAGOS -->
+    <div class="card">
+        <div class="card-header bg-dark text-white">
+            Mis Pagos
+        </div>
+        <div class="card-body">
+
+            @if (pagos != null && pagos.Any())
+            {
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Monto</th>
+                            <th>Vencimiento</th>
+                            <th>Fecha Pago</th>
+                            <th>Estado</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var pago in pagos)
+                        {
+                            <tr>
+                                <td>$ @pago.Monto</td>
+                                <td>@pago.FechaVencimiento.ToShortDateString()</td>
+                                <td>
+                                    @(pago.FechaPago.HasValue
+                                                                ? pago.FechaPago.Value.ToShortDateString()
+                                                                : "-")
+                        </td>
+                        <td>
+                            @if (pago.Estado == EstadoPago.Pagado)
+                                    {
+                                        <span class="badge bg-success">Pagado</span>
+                                    }
+                                    else if (pago.Estado == EstadoPago.Vencido)
+                                    {
+                                        <span class="badge bg-danger">Vencido</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge bg-warning text-dark">Pendiente</span>
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+            else
+            {
+                <p class="text-muted">No hay pagos registrados.</p>
+            }
+
+        </div>
+    </div>
+
+</div>

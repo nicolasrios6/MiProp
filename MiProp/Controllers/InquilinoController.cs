@@ -65,7 +65,8 @@ namespace MiProp.Controllers
                 Email = email,
                 Nombre = nombre,
                 Apellido = apellido,
-                EdificioId = admin.EdificioId
+                EdificioId = admin.EdificioId,
+                EmailConfirmed = true
             };
 
             var result = await _userManager.CreateAsync(usuario, password);
