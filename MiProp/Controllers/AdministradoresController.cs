@@ -96,11 +96,30 @@ namespace MiProp.Controllers
             user.Apellido = model.Apellido; 
             user.Email = model.Email;
             user.UserName = model.Email;
-            user.Activo = model.Activo;
+            //user.Activo = model.Activo;
 
             await _userManager.UpdateAsync(user);
 
             return RedirectToAction(nameof(Index));
         }
+
+        [HttpPost]
+        public async Task<IActionResult> ActivarInactivar(string id)
+        {
+            var usuario = await _userManager.FindByIdAsync(id);
+
+            if(usuario == null) {
+                return NotFound();
+            }
+
+            usuario.Activo = !usuario.Activo;
+
+            await _userManager.UpdateAsync(usuario);
+
+            return RedirectToAction(nameof(Index));
+
+        }
+
+
     }
 }

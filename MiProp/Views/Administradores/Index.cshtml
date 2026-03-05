@@ -23,7 +23,16 @@
                 <td>@admin.Nombre</td>
                 <td>@admin.Apellido</td>
                 <td>@admin.Email</td>
-                <td>@(admin.Activo ? "Sí" : "No")</td>
+                <td>
+                    <form asp-action="ActivarInactivar" method="post" style="display:inline;">
+                        <input type="hidden" name="id" value="@admin.Id" />
+
+                        <button type="submit"
+                                class="btn btn-sm @(admin.Activo ? "btn-success" : "btn-secondary")">
+                            @(admin.Activo ? "Activo" : "Inactivo")
+                        </button>
+                    </form>
+                </td>
                 <td>
                     <a asp-action="Edit" asp-route-id="@admin.Id" class="btn btn-sm btn-warning">Editar</a>
                 </td>

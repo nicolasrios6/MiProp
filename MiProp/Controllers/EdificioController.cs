@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using MiProp.Data;
 using MiProp.Models;
 
@@ -97,7 +98,15 @@ namespace MiProp.Controllers
             var edificio = await _context.Edificios.FindAsync(id);
             if (edificio == null) return NotFound();
 
-            _context.Edificios.Remove(edificio);
+            bool tieneAdmin = edificio.AdminId != null;
+            bool tieneDepartamentos = edificio.Departamentos.Any();
+
+            if (tieneAdmin || tieneDepartamentos)
+            {
+                TempData["ErrorEliminarEdificio"] = "No se puede eliminar un edificio que tenga un administrador o departamentos asignados.";
+                return RedirectToAction(nameof(Index));
+            }
+
             await _context.SaveChangesAsync();
 
             return RedirectToAction(nameof(Index));

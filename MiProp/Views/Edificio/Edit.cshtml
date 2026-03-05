@@ -1,0 +1,20 @@
+﻿@using MiProp.Models
+@model Edificio
+
+<h2>Editar Edificio</h2>
+
+<form asp-action="Edit" method="post">
+    <input type="hidden" asp-for="Id" />
+
+    <div class="mb-3">
+        <label asp-for="Nombre"></label>
+        <input asp-for="Nombre" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Direccion"></label>
+        <input asp-for="Direccion" class="form-control" />
+    </div>
+
+    <button class="btn btn-primary">Guardar Cambios</button>
+</form>
