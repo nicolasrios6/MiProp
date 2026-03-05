@@ -20,15 +20,29 @@
                         <span asp-validation-for="Email" class="text-danger"></span>
                     </div>
 
-                    <div class="mb-3">
+                    @* <div class="mb-3">
                         <label asp-for="Password" class="form-label"></label>
                         <input asp-for="Password" class="form-control" />
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                    </div> *@
+
+                    <div class="mb-3 password-toggle">
+                        <label asp-for="Password" class="form-label">Contraseña</label>
+
+                        <div class="input-group">
+                            <input asp-for="Password" class="form-control" type="password" />
+
+                            <button class="btn btn-secondary toggle-password" type="button">
+                                <i class="bi bi-eye"></i>
+                            </button>
+                        </div>
+
                         <span asp-validation-for="Password" class="text-danger"></span>
                     </div>
 
                     <div class="form-check mb-3">
                         <input asp-for="RememberMe" class="form-check-input" />
-                        <label asp-for="RememberMe" class="form-check-label"></label>
+                        <label asp-for="RememberMe" class="form-check-label">Recordarme</label>
                     </div>
 
                     <button type="submit" class="btn btn-primary w-100">

@@ -19,12 +19,18 @@
     <div class="mb-3">
         <label asp-for="Email"></label>
         <input asp-for="Email" class="form-control" />
-        <span asp-validation-for="Email" class="text-danger"></span>    
+        <span asp-validation-for="Email" class="text-danger"></span>
     </div>
 
-    <div class="mb-3">
+    <div class="mb-3´password-toggle">
         <label asp-for="Password"></label>
-        <input  asp-for="Password" class="form-control" />
+
+        <div class="input-group">
+            <input asp-for="Password" class="form-control" />
+            <button class="btn btn-secondary toggle-password" type="button">
+                <i class="bi bi-eye"></i>
+            </button>
+        </div>
         <span asp-validation-for="Password" class="text-danger"></span>
     </div>
 
