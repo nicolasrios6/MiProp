@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using MiProp.Data;
 using MiProp.Models;
@@ -15,8 +16,8 @@ namespace MiProp.Controllers
 
         public InquilinoController(UserManager<Usuario> userManager, AppDbContext context)
         {
-            _context= context;
-            _userManager= userManager;
+            _context = context;
+            _userManager = userManager;
         }
         // LISTAR
         public async Task<IActionResult> Index()
@@ -102,12 +103,27 @@ namespace MiProp.Controllers
             if (inquilino == null)
                 return NotFound();
 
+            var departamentos = await _context.Departamentos
+                .Where(d => d.EdificioId == admin.EdificioId &&
+                           (d.InquilinoId == null || d.InquilinoId == id))
+                .ToListAsync();
+
+            var departamentoActual = await _context.Departamentos
+                .FirstOrDefaultAsync(d => d.InquilinoId == id);
+
+            ViewBag.Departamentos = new SelectList(
+                departamentos,
+                "Id",
+                "NumeroPiso",
+                departamentoActual?.Id   // 👈 este es el seleccionado
+            );
+
             return View(inquilino);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, Usuario model)
+        public async Task<IActionResult> Edit(string id, Usuario model, int? departamentoId)
         {
             if (id != model.Id)
                 return NotFound();
@@ -123,14 +139,41 @@ namespace MiProp.Controllers
                 return NotFound();
 
             if (!ModelState.IsValid)
-                return View(model);
+            {
+                ViewBag.Departamentos = await _context.Departamentos
+                    .Where(d => d.EdificioId == admin.EdificioId &&
+                               (d.InquilinoId == null || d.InquilinoId == id))
+                    .ToListAsync();
 
-            // Actualizamos solo lo editable
+                return View(model);
+            }
+
+            // Datos personales
             inquilino.Nombre = model.Nombre;
             inquilino.Apellido = model.Apellido;
             inquilino.Email = model.Email;
             inquilino.UserName = model.Email;
             inquilino.Activo = model.Activo;
+
+            // Buscar departamento actual
+            var departamentoActual = await _context.Departamentos
+                .FirstOrDefaultAsync(d => d.InquilinoId == id);
+
+            if (departamentoActual != null && departamentoActual.Id != departamentoId)
+            {
+                departamentoActual.InquilinoId = null;
+            }
+
+            if (departamentoId.HasValue)
+            {
+                var nuevoDepartamento = await _context.Departamentos
+                    .FirstOrDefaultAsync(d => d.Id == departamentoId);
+
+                if (nuevoDepartamento != null)
+                {
+                    nuevoDepartamento.InquilinoId = id;
+                }
+            }
 
             var result = await _userManager.UpdateAsync(inquilino);
 
@@ -141,6 +184,29 @@ namespace MiProp.Controllers
 
                 return View(model);
             }
+
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Index));
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ActivarInactivar(string id)
+        {
+            var inquilino = await _context.Users.FindAsync(id);
+
+            if (inquilino == null)
+                return NotFound();
+
+            inquilino.Activo = !inquilino.Activo;
+
+            var departamento = await _context.Departamentos
+                .FirstOrDefaultAsync(d => d.InquilinoId == id);
+
+            if (departamento != null)
+                departamento.InquilinoId = null;
+
+            await _context.SaveChangesAsync();
 
             return RedirectToAction(nameof(Index));
         }

@@ -91,6 +91,13 @@ namespace MiProp.Controllers
             if (departamento == null)
                 return NotFound();
 
+            bool tieneInquilino = departamento.InquilinoId != null;
+            if (tieneInquilino)
+            {
+                TempData["ErrorEliminarDepartamento"] = "No se puede eliminar un departamento que tenga un inquilino asignado.";
+                return RedirectToAction(nameof(Index));
+            }
+
             _context.Departamentos.Remove(departamento);
             await _context.SaveChangesAsync();
 

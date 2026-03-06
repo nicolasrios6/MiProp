@@ -1,0 +1,39 @@
+﻿@model Pago
+
+@{
+    ViewData["Title"] = "Editar Pago";
+}
+
+<div class="container mt-4">
+    <h2>Editar Pago</h2>
+
+    <form asp-action="Edit">
+        <div class="mb-3">
+            <label>Inquilino</label>
+            <select asp-for="InquilinoId" class="form-control"
+                    asp-items="ViewBag.Inquilinos">
+                <option value="">Seleccione</option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label>Monto</label>
+            <input asp-for="Monto" class="form-control" />
+        </div>
+
+        <div class="mb-3">
+            <label>Fecha Vencimiento</label>
+            <input asp-for="FechaVencimiento" type="date" class="form-control" />
+        </div>
+
+        <div class="mb-3">
+            <label>Estado</label>
+            <select asp-for="Estado" class="form-control"
+                    asp-items="Html.GetEnumSelectList<EstadoPago>()">
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-success">Guardar</button>
+        <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>

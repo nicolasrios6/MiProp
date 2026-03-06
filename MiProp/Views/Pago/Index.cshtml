@@ -38,9 +38,12 @@
                         {
                             <span class="badge bg-success">Pagado</span>
                         }
-                        else
+                        else if(pago.Estado == EstadoPago.Pendiente)
                         {
                             <span class="badge bg-warning text-dark">Pendiente</span>
+                        } else
+                        {
+                            <span class="badge bg-danger">Vencido</span>
                         }
                     </td>
                     <td>
@@ -52,9 +55,9 @@
                             </a>
                         }
 
-                        <a asp-action="Delete" asp-route-id="@pago.Id"
-                           class="btn btn-sm btn-danger">
-                            Eliminar
+                        <a asp-action="Edit" asp-route-id="@pago.Id"
+                           class="btn btn-sm btn-warning">
+                            Editar
                         </a>
                     </td>
                 </tr>

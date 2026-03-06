@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MiProp.Models
 {
@@ -14,5 +15,8 @@ namespace MiProp.Models
 
         public string? InquilinoId { get; set; }
         public Usuario? Inquilino { get; set; }
+
+        [NotMapped]
+        public string NumeroPiso => $"{Numero} - Piso {Piso}";
     }
 }

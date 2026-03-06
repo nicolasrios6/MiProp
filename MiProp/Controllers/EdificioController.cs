@@ -107,6 +107,7 @@ namespace MiProp.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
+            _context.Edificios.Remove(edificio);
             await _context.SaveChangesAsync();
 
             return RedirectToAction(nameof(Index));

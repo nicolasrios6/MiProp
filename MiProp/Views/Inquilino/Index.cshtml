@@ -16,7 +16,7 @@
             <th>Nombre</th>
             <th>Email</th>
             <th>Departamento</th>
-            <th></th>
+            <th>Activo</th>
         </tr>
     </thead>
     <tbody>
@@ -31,8 +31,17 @@
                     @(depto != null ? $"{depto.Numero} - Piso {depto.Piso}" : "Sin asignar")
                 </td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Editar</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Eliminar</a>
+                <form asp-action="ActivarInactivar" method="post" style="display:inline;">
+                    <input type="hidden" name="id" value="@item.Id" />
+
+                    <button type="submit"
+                            class="btn btn-sm @(item.Activo ? "btn-success" : "btn-secondary")">
+                        @(item.Activo ? "Activo" : "Inactivo")
+                    </button>
+                </form>
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Editar</a> 
                 </td>
             </tr>
         }

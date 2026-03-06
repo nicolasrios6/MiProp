@@ -34,6 +34,13 @@
             <label class="form-check-label">Activo</label>
         </div>
 
+        <div class="mb-3">
+            <label>Departamento</label>
+            <select name="departamentoId" class="form-control" asp-items="ViewBag.Departamentos">
+                <option value="">Sin departamento</option>
+            </select>
+        </div>
+
         <button type="submit" class="btn btn-primary">Guardar</button>
         <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
     </form>
