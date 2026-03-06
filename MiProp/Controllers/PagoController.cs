@@ -60,7 +60,7 @@ namespace MiProp.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        public async Task<IActionResult> Edit(int id)
+        public async Task<IActionResult> Edit(int id, string returnUrl = null)
         {
             var admin = await _userManager.GetUserAsync(User);
 
@@ -69,6 +69,8 @@ namespace MiProp.Controllers
 
             if (pago == null)
                 return NotFound();
+
+            ViewBag.ReturnUrl = returnUrl;
 
             var inquilinos = await _userManager.GetUsersInRoleAsync("Inquilino");
 
@@ -88,7 +90,7 @@ namespace MiProp.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, Pago model)
+        public async Task<IActionResult> Edit(int id, Pago model, string returnUrl)
         {
             if (id != model.Id)
                 return NotFound();
@@ -123,6 +125,9 @@ namespace MiProp.Controllers
             pago.Estado = model.Estado;
 
             await _context.SaveChangesAsync();
+
+            if (!string.IsNullOrEmpty(returnUrl))
+                return Redirect(returnUrl);
 
             return RedirectToAction(nameof(Index));
         }

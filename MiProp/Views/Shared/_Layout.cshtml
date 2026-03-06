@@ -36,6 +36,29 @@
                         @if (SignInManager.IsSignedIn(User))
                         {
                             <li class="nav-item">
+
+                                @if (User.IsInRole("SuperAdmin"))
+                                {
+                                    <a asp-controller="SuperAdmin" asp-action="Dashboard" class="nav-link text-dark">
+                                        Dashboard
+                                    </a>
+                                }
+                                else if (User.IsInRole("Admin"))
+                                {
+                                    <a asp-controller="Admin" asp-action="Dashboard" class="nav-link text-dark">
+                                        Dashboard
+                                    </a>
+                                }
+                                else if (User.IsInRole("Inquilino"))
+                                {
+                                    <a asp-controller="InquilinoPanel" asp-action="Dashboard" class="nav-link text-dark">
+                                        Dashboard
+                                    </a>
+                                }
+
+                            </li>
+
+                            <li class="nav-item">
                                 <form asp-area="" asp-controller="Account" asp-action="Logout" method="post" class="d-inline">
                                     <button type="submit" class="btn btn-link nav-link text-dark">Cerrar Sesión</button>
                                 </form>

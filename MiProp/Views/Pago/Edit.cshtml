@@ -8,6 +8,7 @@
     <h2>Editar Pago</h2>
 
     <form asp-action="Edit">
+        <input type="hidden" name="returnUrl" value="@ViewBag.ReturnUrl" />
         <div class="mb-3">
             <label>Inquilino</label>
             <select asp-for="InquilinoId" class="form-control"

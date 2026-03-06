@@ -17,7 +17,7 @@ namespace MiProp.Controllers
             _context = context;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Dashboard()
         {
             var inquilino = await _userManager.GetUserAsync(User);
 

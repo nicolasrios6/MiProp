@@ -210,5 +210,29 @@ namespace MiProp.Controllers
 
             return RedirectToAction(nameof(Index));
         }
+
+        public async Task<IActionResult> Pagos(string id)
+        {
+            var admin = await _userManager.GetUserAsync(User);
+
+            var inquilino = await _context.Users
+                .FirstOrDefaultAsync(u =>
+                    u.Id == id &&
+                    u.EdificioId == admin.EdificioId);
+
+            if (inquilino == null)
+                return NotFound();
+
+            var pagosInquilino = await _context.Pagos
+                .Include(p => p.Inquilino) // IMPORTANTE
+                .Where(p => p.InquilinoId == inquilino.Id)
+                .OrderByDescending(p => p.FechaVencimiento)
+                .ToListAsync();
+
+            ViewBag.InquilinoNombre = $"{inquilino.Nombre} {inquilino.Apellido}";
+            ViewBag.InquilinoId = inquilino.Id;
+
+            return View(pagosInquilino);
+        }
     }
 }
