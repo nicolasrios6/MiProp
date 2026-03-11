@@ -1,9 +1,28 @@
 ﻿@{
     ViewData["Title"] = "Dashboard SuperAdmin";
 }
+@if (TempData["Mensaje"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["Mensaje"]
+    </div>
+}
 
 <div class="container mt-5">
     <h2 class="mb-4">Panel de Super Administrador</h2>
+
+    <div class="col-md-4">
+        <div class="card shadow-sm p-3">
+            <h5>Prueba de Email</h5>
+            <p>Enviar email de prueba</p>
+
+            <form asp-action="EnviarMailPrueba" method="post">
+                <button type="submit" class="btn btn-success">
+                    Enviar Mail
+                </button>
+            </form>
+        </div>
+    </div>
 
     <div class="row">
         <div class="col-md-4">
