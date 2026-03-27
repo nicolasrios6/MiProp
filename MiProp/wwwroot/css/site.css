@@ -19,6 +19,8 @@ html {
 
 body {
   margin-bottom: 60px;
+  padding-top: 90px
+
 }
 
 .form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
@@ -28,4 +30,37 @@ body {
 
 .form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
   text-align: start;
+}
+
+.hero {
+    background: #fff;
+    /*margin-top: 100px;*/
+}
+
+.span-hero {
+    color: #FF6A00;
+}
+
+.boton-primario {
+    background: #FF6A00;
+    border-color: #FF6A00;
+}
+
+    .boton-primario:hover {
+        background: #e65c00;
+        border-color: #e65c00;
+    }
+
+.boton-secundario {
+    background: #FFF;
+    border-color: #FF6A00;
+}
+
+    .boton-secundario:hover {
+        background: #e65c00;
+        border-color: #e65c00;
+    }
+
+.text-orange {
+    color: #FF6A00;
 }

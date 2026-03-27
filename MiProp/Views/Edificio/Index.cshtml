@@ -2,7 +2,7 @@
 
 <h2>Edificios</h2>
 
-<a asp-action="Create" class="btn btn-primary mb-3">Crear Edificio</a>
+<a asp-action="Create" class="btn boton-primario mb-3">Crear Edificio</a>
 <a asp-action="Dashboard" asp-controller="SuperAdmin" class="btn btn-secondary mb-3">Volver</a>
 
 <table class="table table-bordered">
@@ -22,8 +22,8 @@
                 <td>@item.Direccion</td>
                 <td>@item.Admin?.Email</td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Editar</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Eliminar</a>
+                    <a asp-action="Edit" asp-route-id="@item.Id" class=" btn btn-warning">Editar</a> 
+                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Eliminar</a>
                 </td>
             </tr>
         }

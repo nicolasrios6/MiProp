@@ -32,7 +32,7 @@
                         <div class="input-group">
                             <input asp-for="Password" class="form-control" type="password" />
 
-                            <button class="btn btn-secondary toggle-password" type="button">
+                            <button class="btn boton-secundario toggle-password" type="button">
                                 <i class="bi bi-eye"></i>
                             </button>
                         </div>
@@ -40,15 +40,20 @@
                         <span asp-validation-for="Password" class="text-danger"></span>
                     </div>
 
-                    <div class="form-check mb-3">
+                    <div class="form-check mb-3 d-flex justify-content-between">
+                        <div>
+
                         <input asp-for="RememberMe" class="form-check-input" />
                         <label asp-for="RememberMe" class="form-check-label">Recordarme</label>
+                        </div>
+
+                        <a asp-action="ForgotPassword" asp-controller="Account">Olvidé mi contraseña</a>
+
                     </div>
 
-                    <div class="form-check mb-3">
-                        <a asp-action="ForgotPassword" asp-controller="Account">Recuperar Contraseña</a>
-                    </div>
-                    <button type="submit" class="btn btn-primary w-100">
+                    @* <div class="form-check mb-3">
+                    </div> *@
+                    <button type="submit" class="btn boton-primario w-100">
                         Ingresar
                     </button>
                 </form>
